@@ -60,9 +60,9 @@ resource "openstack_lb_listener_v2" "listener_tcp" {
   protocol_port   = "6443"
   loadbalancer_id = openstack_lb_loadbalancer_v2.master_nodes_lb.id
 
-  insert_headers = {
-    X-Forwarded-For = "true"
-  }
+  # insert_headers = {
+  #   X-Forwarded-For = "true"
+  # }
 }
 
 resource "openstack_lb_pool_v2" "pool_proxy" {
