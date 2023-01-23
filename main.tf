@@ -2,7 +2,7 @@
 
 # jumphost 
 
-resource "openstack_compute_secgroup_v2" "k8s_all_nodes" {
+resource "openstack_compute_secgroup_v2" "k8s_jumphost" {
   count       = var.trusted_public_cidr == "" ? 0 : 1
   name        = "k8s_jumphost"
   description = "k8s_jumphost"
