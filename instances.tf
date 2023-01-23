@@ -15,9 +15,9 @@ resource "openstack_compute_instance_v2" "master_nodes" {
   flavor_id = var.master_nodes["flavor_id"]
   key_pair  = var.key_pair
   security_groups = [
-    "k8s_allow_ssh_icmp",
-    "k8s_master_nodes",
-    "k8s_cillium_master_nodes"
+    openstack_compute_secgroup_v2.k8s_all_nodes,
+    openstack_compute_secgroup_v2.k8s_master_nodes,
+    openstack_compute_secgroup_v2.k8s_cillium_master_nodes
   ]
 
   scheduler_hints {

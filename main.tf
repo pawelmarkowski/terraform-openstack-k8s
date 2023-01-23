@@ -2,7 +2,7 @@
 
 # ALL NODES
 
-resource "openstack_compute_secgroup_v2" "k8s_master_nodes" {
+resource "openstack_compute_secgroup_v2" "k8s_all_nodes" {
   name        = "k8s_allow_ssh_icmp"
   description = "k8s_allow_ssh_icmp"
 
