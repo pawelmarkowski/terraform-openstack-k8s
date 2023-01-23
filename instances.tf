@@ -15,9 +15,9 @@ resource "openstack_compute_instance_v2" "master_nodes" {
   flavor_id = var.master_nodes["flavor_id"]
   key_pair  = var.key_pair
   security_groups = [
-    openstack_compute_secgroup_v2.k8s_all_nodes,
-    openstack_compute_secgroup_v2.k8s_master_nodes,
-    openstack_compute_secgroup_v2.k8s_cillium_master_nodes
+    openstack_compute_secgroup_v2.k8s_all_nodes.id,
+    openstack_compute_secgroup_v2.k8s_master_nodes.id,
+    openstack_compute_secgroup_v2.k8s_cillium_master_nodes.id
   ]
 
   scheduler_hints {
@@ -37,9 +37,9 @@ resource "openstack_compute_instance_v2" "worker_nodes" {
   flavor_id = var.worker_nodes["flavor_id"]
   key_pair  = var.key_pair
   security_groups = [
-    "allow_ping_ssh_icmp_rdp",
-    "k8s_worker_nodes",
-    "k8s_cillium_worker_nodes"
+    openstack_compute_secgroup_v2.k8s_all_nodes.id,
+    openstack_compute_secgroup_v2.k8s_master_nodes.id,
+    openstack_compute_secgroup_v2.k8s_cillium_master_nodes.id
   ]
 
   scheduler_hints {
