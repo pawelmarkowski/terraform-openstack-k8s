@@ -38,5 +38,5 @@ variable "dns_zone" {
 
 variable "trusted_public_cidr" {
   type    = string
-  default = "88.156.136.41"
+  default = ""
 }
