@@ -35,3 +35,8 @@ variable "pool_name" {
 variable "dns_zone" {
   # openstack_dns_zone_v2
 }
+
+variable "trusted_public_cidr" {
+  type    = string
+  default = "88.156.136.41"
+}

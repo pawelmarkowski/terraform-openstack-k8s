@@ -1,6 +1,21 @@
 # Protocol	Direction	Port Range	Purpose	Used By
 
-# ALL NODES
+# jumphost 
+
+resource "openstack_compute_secgroup_v2" "k8s_all_nodes" {
+  count       = var.trusted_public_cidr == "" ? 0 : 1
+  name        = "k8s_jumphost"
+  description = "k8s_jumphost"
+
+  rule {
+    from_port   = 22
+    to_port     = 22
+    ip_protocol = "tcp"
+    cidr        = var.trusted_public_cidr
+  }
+}
+
+# ALL K8S NODES
 
 resource "openstack_compute_secgroup_v2" "k8s_all_nodes" {
   name        = "k8s_allow_ssh_icmp"
