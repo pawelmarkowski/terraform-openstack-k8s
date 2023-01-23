@@ -15,7 +15,7 @@ resource "openstack_compute_instance_v2" "master_nodes" {
   flavor_id = var.master_nodes["flavor_id"]
   key_pair  = var.key_pair
   security_groups = [
-    "allow_ping_ssh_icmp_rdp",
+    "k8s_allow_ssh_icmp",
     "k8s_master_nodes",
     "k8s_cillium_master_nodes"
   ]
@@ -27,6 +27,7 @@ resource "openstack_compute_instance_v2" "master_nodes" {
   network {
     name = var.master_nodes["network"].name
   }
+  depends_on = [openstack_compute_servergroup_v2.master_nodes_sg]
 }
 
 resource "openstack_compute_instance_v2" "worker_nodes" {
@@ -48,6 +49,7 @@ resource "openstack_compute_instance_v2" "worker_nodes" {
   network {
     name = var.worker_nodes["network"].name
   }
+  depends_on = [openstack_compute_servergroup_v2.worker_nodes_sg]
 }
 
 resource "openstack_lb_loadbalancer_v2" "master_nodes_lb" {

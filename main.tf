@@ -1,5 +1,33 @@
 # Protocol	Direction	Port Range	Purpose	Used By
 
+# ALL NODES
+
+resource "openstack_compute_secgroup_v2" "k8s_master_nodes" {
+  name        = "k8s_allow_ssh_icmp"
+  description = "k8s_allow_ssh_icmp"
+
+  rule {
+    from_port   = -1
+    to_port     = -1
+    ip_protocol = "icmp"
+    cidr        = var.master_nodes["subnet"].cidr
+  }
+
+  rule {
+    from_port   = -1
+    to_port     = -1
+    ip_protocol = "icmp"
+    cidr        = var.worker_nodes["subnet"].cidr
+  }
+  rule {
+    from_port   = 22
+    to_port     = 22
+    ip_protocol = "tcp"
+    cidr        = var.master_nodes["subnet"].cidr
+  }
+}
+
+
 # MASTER NODES
 resource "openstack_compute_secgroup_v2" "k8s_master_nodes" {
   name        = "k8s_master_nodes"
