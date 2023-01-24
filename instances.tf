@@ -8,6 +8,27 @@ resource "openstack_compute_servergroup_v2" "worker_nodes_sg" {
   policies = ["anti-affinity"]
 }
 
+resource "openstack_compute_instance_v2" "jumphost" {
+  count     = var.trusted_public_cidr == "" ? 0 : 1
+  name      = "jumphost"
+  image_id  = var.master_nodes["image_id"]
+  flavor_id = var.jump_host_flavor_id
+  key_pair  = var.key_pair
+  security_groups = [
+    openstack_compute_secgroup_v2.k8s_jumphost.id,
+    openstack_compute_secgroup_v2.k8s_all_nodes.id,
+  ]
+
+  scheduler_hints {
+    group = openstack_compute_servergroup_v2.master_nodes_sg.id
+  }
+
+  network {
+    name = var.master_nodes["network"].name
+  }
+  depends_on = [openstack_compute_servergroup_v2.master_nodes_sg]
+}
+
 resource "openstack_compute_instance_v2" "master_nodes" {
   count     = var.master_nodes["quantity"]
   name      = "${var.master_nodes["prefix"]}-${count.index}"

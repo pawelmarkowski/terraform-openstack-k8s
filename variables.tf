@@ -40,3 +40,8 @@ variable "trusted_public_cidr" {
   type    = string
   default = ""
 }
+
+variable "jumphost_flavor_id" {
+  type    = string
+  default = ""
+}
