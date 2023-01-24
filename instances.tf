@@ -15,7 +15,7 @@ resource "openstack_compute_instance_v2" "jumphost" {
   flavor_id = var.jump_host_flavor_id
   key_pair  = var.key_pair
   security_groups = [
-    openstack_compute_secgroup_v2.k8s_jumphost.id,
+    openstack_compute_secgroup_v2.k8s_jumphost[0].id,
     openstack_compute_secgroup_v2.k8s_all_nodes.id,
   ]
 
