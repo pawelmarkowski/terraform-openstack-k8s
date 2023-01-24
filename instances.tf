@@ -12,7 +12,7 @@ resource "openstack_compute_instance_v2" "jumphost" {
   count     = var.trusted_public_cidr == "" ? 0 : 1
   name      = "jumphost"
   image_id  = var.master_nodes["image_id"]
-  flavor_id = var.jump_host_flavor_id
+  flavor_id = var.jumphost_flavor_id
   key_pair  = var.key_pair
   security_groups = [
     openstack_compute_secgroup_v2.k8s_jumphost[0].id,
