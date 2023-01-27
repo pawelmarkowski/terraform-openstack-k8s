@@ -1,14 +1,5 @@
 # Protocol	Direction	Port Range	Purpose	Used By
-provider "openstack" {
-  use_octavia = true
-  max_retries = 3
-  auth_url    = "http://myauthurl:5000/v2.0"
-  user_name   = "admin"
-  tenant_name = "admin"
-  password    = "pwd"
-  region      = "RegionOne"
-  cloud       = "xxx"
-}
+
 # jumphost 
 
 resource "openstack_compute_secgroup_v2" "k8s_jumphost" {
