@@ -8,6 +8,11 @@ resource "openstack_compute_servergroup_v2" "worker_nodes_sg" {
   policies = ["anti-affinity"]
 }
 
+resource "openstack_networking_floatingip_v2" "fip_for_jumphost" {
+  count = var.trusted_public_cidr == "" ? 0 : 1
+  pool  = var.fip_pool_name
+}
+
 resource "openstack_compute_instance_v2" "jumphost" {
   count     = var.trusted_public_cidr == "" ? 0 : 1
   name      = "jumphost"
@@ -27,6 +32,12 @@ resource "openstack_compute_instance_v2" "jumphost" {
     name = var.master_nodes["network"].name
   }
   depends_on = [openstack_compute_servergroup_v2.master_nodes_sg]
+}
+
+resource "openstack_compute_floatingip_associate_v2" "fip_jumphost" {
+  count       = var.trusted_public_cidr == "" ? 0 : 1
+  floating_ip = openstack_networking_floatingip_v2.fip_for_jumphost[0].address
+  instance_id = openstack_compute_instance_v2.jumphost[0].id
 }
 
 resource "openstack_compute_instance_v2" "master_nodes" {
