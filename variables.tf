@@ -23,13 +23,11 @@ variable "worker_nodes" {
 }
 
 variable "key_pair" {
-  type    = string
-  default = "pawel"
+  type = string
 }
 
-variable "pool_name" {
-  type    = string
-  default = "external2"
+variable "fip_pool_name" {
+  type = string
 }
 
 variable "dns_zone" {

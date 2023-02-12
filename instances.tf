@@ -128,7 +128,7 @@ resource "openstack_lb_monitor_v2" "monitor_https_lb" {
 }
 
 resource "openstack_networking_floatingip_v2" "master_nodes_lb_floating_ip" {
-  pool    = var.pool_name
+  pool    = var.fip_pool_name
   port_id = openstack_lb_loadbalancer_v2.master_nodes_lb.vip_port_id
 }
 

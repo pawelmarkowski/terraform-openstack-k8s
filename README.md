@@ -2,7 +2,7 @@
 
 how to use module?
 
-add source in module: 
+add source in module:
 
 ```bash
 module "k8s" {
@@ -26,7 +26,7 @@ module "k8s" {
     network   = resource.openstack_networking_network_v2.worker_nodes_net
     subnet    = resource.openstack_networking_subnet_v2.worker_nodes_sub
   }
-  pool_name = var.fip_pool_name
+  fip_pool_name = var.fip_pool_name
   dns_zone = resource.openstack_dns_zone_v2.dns_zone
   key_pair = var.key_pair
 }
