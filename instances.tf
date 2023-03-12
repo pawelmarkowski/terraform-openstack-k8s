@@ -70,8 +70,8 @@ resource "openstack_compute_instance_v2" "worker_nodes" {
   key_pair  = var.key_pair
   security_groups = [
     openstack_compute_secgroup_v2.k8s_all_nodes.id,
-    openstack_compute_secgroup_v2.k8s_master_nodes.id,
-    openstack_compute_secgroup_v2.k8s_cillium_master_nodes.id
+    openstack_compute_secgroup_v2.k8s_worker_nodes.id,
+    openstack_compute_secgroup_v2.k8s_cillium_worker_nodes.id
   ]
 
   scheduler_hints {
